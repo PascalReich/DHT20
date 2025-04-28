@@ -40,7 +40,7 @@ class I2C_Interface {
       virtual void begin() = 0;
       virtual void beginTransmission(uint8_t address) = 0;
       virtual uint8_t endTransmission() = 0;
-      virtual void write(uint8_t data) = 0;
+      virtual size_t write(uint8_t data) = 0;
       virtual int read() = 0;
       virtual uint8_t requestFrom(uint8_t address, uint8_t length) = 0;
 };
@@ -66,7 +66,7 @@ class HardwareI2C : public I2C_Interface {
       return _wire->endTransmission();
     };
 
-    void write(uint8_t data) override {
+    size_t write(uint8_t data) override {
       return _wire->write(data);
     };
 
@@ -101,7 +101,7 @@ class SoftwareI2C : public I2C_Interface {
       return _wire->endTransmission();
     };
 
-    void write(uint8_t data) override {
+    size_t write(uint8_t data) override {
       return _wire->write(data);
     };
 
