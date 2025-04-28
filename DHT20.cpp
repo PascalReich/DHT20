@@ -44,6 +44,10 @@ DHT20(uint8_t sda, uint8_t scl);
 }
 #endif
 
+DHT20::~DHT20() {
+    delete _wire; // Free memory
+}
+
 
 bool DHT20::begin()
 {

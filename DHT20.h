@@ -126,6 +126,8 @@ public:
   DHT20(uint8_t sda, uint8_t scl);
 #endif
 
+  ~DHT20();
+
 
   bool     begin();
   bool     isConnected();
