@@ -17,7 +17,8 @@ const uint8_t DHT20_ADDRESS = 0x38;
 
 DHT20::DHT20(TwoWire *wire)
 {
-  _wire        = wire;
+  
+  _wire        = new HardwareI2C(wire);
   //  reset() ?
   _temperature = 0;
   _humidity    = 0;
@@ -27,6 +28,21 @@ DHT20::DHT20(TwoWire *wire)
   _lastRequest = 0;
   _lastRead    = 0;
 }
+
+#ifdef ENABLE_SOFTWARE_I2C
+DHT20(uint8_t sda, uint8_t scl);
+{
+  
+  _wire        = new SoftwareI2C(sda, scl);
+  _temperature = 0;
+  _humidity    = 0;
+  _humOffset   = 0;
+  _tempOffset  = 0;
+  _status      = DHT20_OK;
+  _lastRequest = 0;
+  _lastRead    = 0;
+}
+#endif
 
 
 bool DHT20::begin()
