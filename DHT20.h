@@ -45,12 +45,12 @@ class I2C_Interface {
       virtual uint8_t requestFrom(uint8_t address, uint8_t length) = 0;
 };
 
-class HardwareI2C : public I2C_Interface {
+class HWI2C : public I2C_Interface {
   private:
     TwoWire* _wire;
   public:
 
-    HardwareI2C(TwoWire *wire) {
+    HWI2C(TwoWire *wire) {
       _wire = wire;
     }
 
@@ -80,12 +80,12 @@ class HardwareI2C : public I2C_Interface {
 };
 
 #ifdef ENABLE_SOFTWARE_I2C
-class SoftwareI2C : public I2C_Interface {
+class SWI2C : public I2C_Interface {
   private:
     SoftWire* _wire;
 
   public:
-    SoftwareI2C(uint8_t sda, uint8_t scl) {
+    SWI2C(uint8_t sda, uint8_t scl) {
       _wire = new SoftWire(sda, scl)
     }
 
