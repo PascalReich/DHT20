@@ -35,13 +35,14 @@
 #define DHT20_ERROR_LASTREAD                -15
 
 class I2C_Interface {
+    public:
 
-    virtual void begin() = 0;
-    virtual void beginTransmission(uint8_t address) = 0;
-    virtual uint8_t endTransmission() = 0;
-    virtual void write(uint8_t address, uint8_t data) = 0;
-    virtual int read(uint8_t address, uint8_t *data, uint8_t length) = 0;
-    virtual uint8_t requestFrom(uint8_t address, uint8_t length) = 0;
+      virtual void begin() = 0;
+      virtual void beginTransmission(uint8_t address) = 0;
+      virtual uint8_t endTransmission() = 0;
+      virtual void write(uint8_t data) = 0;
+      virtual int read() = 0;
+      virtual uint8_t requestFrom(uint8_t address, uint8_t length) = 0;
 };
 
 class HardwareI2C : public I2C_Interface {
@@ -58,22 +59,23 @@ class HardwareI2C : public I2C_Interface {
     };
 
     void beginTransmission(uint8_t address) override {
-      return _wire.beginTransmission(address);
+      return _wire->beginTransmission(address);
     };
 
     uint8_t endTransmission() override {
-      return _wire.endTransmission();
+      return _wire->endTransmission();
     };
 
-    void write(uint8_t address, uint8_t data) override {
-      return _wire.write(data);
+    void write(uint8_t data) override {
+      return _wire->write(data);
     };
-    int read(uint8_t address, uint8_t *data, uint8_t length) override {
-      return _wire.readBytes(data, length);
-    };
+
+    int read() override {
+      return _wire->read();
+    }
 
     uint8_t requestFrom(uint8_t address, uint8_t length) override {
-      return _wire.requestFrom(address, length);
+      return _wire->requestFrom(address, length);
     };
 };
 
@@ -92,23 +94,23 @@ class SoftwareI2C : public I2C_Interface {
     };
 
     void beginTransmission(uint8_t address) override {
-      return _wire.beginTransmission(address);
+      return _wire->beginTransmission(address);
     };
 
     uint8_t endTransmission() override {
-      return _wire.endTransmission();
+      return _wire->endTransmission();
     };
 
-    void write(uint8_t address, uint8_t data) override {
-      return _wire.write(data);
+    void write(uint8_t data) override {
+      return _wire->write(data);
     };
 
-    int read(uint8_t address, uint8_t *data, uint8_t length) override {
-      return _wire.readBytes(data, length);
-    };
+    int read() override {
+      return _wire->read();
+    }
 
     uint8_t requestFrom(uint8_t address, uint8_t length) override {
-      return _wire.requestFrom(address, length);
+      return _wire->requestFrom(address, length);
     };
 
 }
