@@ -95,6 +95,10 @@ too if they are behind the multiplexer.
 
 - https://github.com/RobTillaart/TCA9548
 
+#### Software I2C
+
+Another way to use multiple sensors is to use one with hardware I2C and one with software I2C. This allows you to use as many DHT20s as you have pairs of output pins.
+
 
 #### Connection
 
